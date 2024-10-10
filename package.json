@@ -18,7 +18,7 @@
     "buildpush:dev": "pnpm build && pnpm prepush && cross-env clasp_config_project=.clasp.dev.json clasp push --force"
   },
   "dependencies": {
-    "@biomejs/biome": "^1.9.2",
+    "@biomejs/biome": "^1.9.3",
     "@hi-se/gas-slack": "https://gitpkg.vercel.app/hi-se/gas-slack?main",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
