@@ -1,0 +1,4 @@
+node_modules/
+build/
+.clasp*.json
+.pnpm-store

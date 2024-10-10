@@ -1,0 +1,33 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "all": true,
+      "style": {
+        "useNamingConvention": "off"
+      },
+      "suspicious": {
+        "noShadowRestrictedNames": "off"
+      },
+      "complexity": {
+        "noForEach": "off"
+      },
+      "correctness": {
+        "noUndeclaredVariables": "off"
+      }
+    }
+  },
+  "files": {
+    "ignore": ["build", "node_modules", ".pnpm-store"]
+  }
+}
