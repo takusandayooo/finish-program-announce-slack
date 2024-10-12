@@ -6,9 +6,10 @@ import { getConfig } from "./config";
 
 
 const APIschema = z.object({
-  slackId: z.string(),
+  slackId: z.string().optional(),
   PCId: z.number(),
   flag: z.union([z.literal("OK"), z.literal("NG")]),
+  programFinished: z.boolean().optional(),
   message: z.string().optional(),
 })
 type APIschema = z.infer<typeof APIschema>
@@ -41,12 +42,17 @@ const postMessageToSlackChannel = (client: SlackClient, slackChannelId: string, 
 const slackIdToMention = (slackId: string) => `<@${slackId}>`;
 
 const createSlackMessage = (apiContent: APIschema): string => {
-  const { slackId, PCId, flag, message } = apiContent;
-  if (flag === "OK") {
-    return `${slackIdToMention(slackId)}  \n${PCId}のパソコンでのプログラムが終了しました。\n${message}`
+  const { slackId, PCId, flag, message, programFinished } = apiContent;
+
+  if (programFinished == true) {
+    if (flag === "OK") {
+      return slackId ? `${slackIdToMention(slackId)}  \n${PCId}のパソコンでのプログラムが正常に終了しました。` : `${PCId}のパソコンでのプログラムが正常に終了しました。`
+    } else {
+      return slackId ? `${slackIdToMention(slackId)}  \n${PCId}のパソコンでのプログラムが異常終了しました。\n${message}` : `${PCId}のパソコンでのプログラムが異常終了しました。\n${message}`
+    }
   }
   else {
-    return `${slackIdToMention(slackId)}  \n${PCId}のパソコンでのプログラムでエラーが発生しました。\n${message}`
+    return slackId ? `${slackIdToMention(slackId)}  \n${PCId}のパソコンでのプログラムが実行中です。\n${message}` : `${PCId}のパソコンでのプログラムが実行中です。\n${message}`
   }
 }
 
