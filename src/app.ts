@@ -47,7 +47,7 @@ const slackIdToMention = (slackId: string) => `<@${slackId}>`;
 const createSlackMessage = (apiContent: APIschema): string => {
   const { slackId, PCId, flag, message, programEnd, programStart } = apiContent;
   const safeMessage = message || "";
-  if (flag == "NG") {
+  if (flag === "NG") {
     return slackId
       ? `${slackIdToMention(slackId)}  \n${PCId}のパソコンでのプログラムが異常終了しました。\n${safeMessage}`
       : `${PCId}のパソコンでのプログラムが異常終了しました。\n${safeMessage}`;
@@ -56,12 +56,11 @@ const createSlackMessage = (apiContent: APIschema): string => {
     return slackId
       ? `${slackIdToMention(slackId)}  \n${PCId}のパソコンでのプログラムが開始しました。`
       : `${PCId}のパソコンでのプログラムが開始しました。`;
-  } else if (programEnd == true) {
-    if (flag === "OK") {
-      return slackId
-        ? `${slackIdToMention(slackId)}  \n${PCId}のパソコンでのプログラムが正常に終了しました。`
-        : `${PCId}のパソコンでのプログラムが正常に終了しました。\n${safeMessage}`;
-    }
+  }
+  if (programEnd === true) {
+    return slackId
+      ? `${slackIdToMention(slackId)}  \n${PCId}のパソコンでのプログラムが正常に終了しました。`
+      : `${PCId}のパソコンでのプログラムが正常に終了しました。\n${safeMessage}`;
   }
   return `${PCId}のパソコンでのプログラムが実行中です。\n${safeMessage}`;
 };
